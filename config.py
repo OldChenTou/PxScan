@@ -1,0 +1,1 @@
+CMSDATA = './data/cmsdata.json'

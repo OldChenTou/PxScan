@@ -1,0 +1,8 @@
+pxscan = whatweb + dirsearch
+
+masterWeb部分
+    获取主站：statuscode，title，cms，ip，xpower，
+
+dirseearch部分：
+    根据xpower 分别下不同字典，高并发获取statuscode
+
