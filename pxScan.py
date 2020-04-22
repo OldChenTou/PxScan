@@ -2,7 +2,7 @@ from multiprocessing import Process, Pool
 import multiprocessing
 import glob
 from lib.masterWeb import masterWeb
-import lib.argParse as argParse
+import lib.parseArgs as parseArgs
 import concurrent.futures
 import requests
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor, wait, ALL_COMPLETED, FIRST_COMPLETED, as_completed
@@ -31,12 +31,12 @@ def openUrl(url):
 if __name__ == '__main__':
     #初始化部分,取url，解析url
     FileDictDefault = glob.glob('./dict/normal/*.txt')
-    arg = argParse()
+    arg = parseArgs.parseArgs()
     baseurl = arg.u
     if arg.d:
         FileDictDefault.append(arg.d)
     masterWeb = masterWeb(baseurl)
-    print
+    print('masterWeb')
     xpd = masterWeb.xPowerBy
     if 'ASP' in xpd:
         x = glob.glob('./dict/asp/asp.txt')
@@ -60,7 +60,3 @@ if __name__ == '__main__':
         for i in as_completed(task):
             print(i.result())
 
-    pool =Pool(multiprocessing.cpu_count())
-    print('scan begin')
-    for i in range(10):
-        pool.apply_async(func, args=(i,),callback=P)

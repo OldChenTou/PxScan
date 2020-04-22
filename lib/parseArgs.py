@@ -1,6 +1,6 @@
 import argparse
 import sys, os
-def argParser():
+def parseArgs():
     parser = argparse.ArgumentParser(prog='PxScan V1.0', description=''\
                                     '针对字典库的特殊路径进行爬取，字典库暂时只分：默认，jsp，php，aspx',
                                      usage='PxScan.py [options]')
