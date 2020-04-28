@@ -9,14 +9,14 @@
 
 
 ## 用法Usage
-				针对字典库的特殊路径进行爬取，字典库暂时只分：默认，jsp，php，asp
-				python      PxScan.py      [options]
-				optional arguments:
-				    -h, --help            show this help message and exit
-					-u Url, --url Url
-					-d Directory, --dict Directory
-					-t Timeout, --timeout Timeout
-					-v VERSION, --version VERSION
-					-tech Tech Engine
+    针对字典库的特殊路径进行爬取，字典库暂时只分：默认，jsp，php，asp
+    python      PxScan.py      [options]
+    optional arguments:
+        -h, --help            show this help message and exit
+        -u Url, --url Url
+	-d Directory, --dict Directory
+	-t Timeout, --timeout Timeout
+	-v VERSION, --version VERSION
+	-tech Tech Engine
  				
 
