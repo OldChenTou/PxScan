@@ -2,32 +2,36 @@ import requests
 import re
 import socket
 import json
+from urllib.parse import urlparse
 
 from lib.cmsDiscover import cmsDiscover
 class masterWeb(object):
-    def __init__(self, url, parser, proxy={}, timeout=10, load=True):
+    def __init__(self, url, proxy={}, timeout=10, load=True):
         self.proxy = proxy
         self.timeout = timeout
         self.url = url
-        self.parser = parser
-        self.scheme = parser.scheme #https
-        self.netloc = parser.netloc #www.baidu.com
-        self.path = parser.path   #www.baidu.com
+        self.parser = urlparse(url)
+        self.scheme = self.parser.scheme #https
+        self.netloc = self.parser.netloc #www.baidu.com
+        self.path = self.parser.path   #www.baidu.com
         self.domain = ''
-        if re.search('a-z',self.netloc, re.I):
+        if re.search(r'[a-z]',self.netloc, re.I):
             self.domain = self.netloc.split(':')[0]
-        self.ip = self.gethostbyname(self.netloc.split(':')[0])
+            #print('domain0 = ' + self.domain)
+            self.ip = self.gethostbyname(self.domain)
+        else:
+            #print('domain1 =' + self.domain)
+            self.ip = self.netloc.split(':')[0]
         try:
             self.port = self.netloc.split(':')[1]
         except:
             self.port = 443 if self.scheme.upper() == 'HTTPS' else 80
         self.status_code= 0
-        self._content   = set() #struts2 dedecms ...
-        self.headers    = {'Accept': 'text/html, application/xhtml+xml, image/jxr, */*',
+        #self._content   = set() #struts2 dedecms ...
+        self.headers    = {
                'Accept - Encoding':'gzip, deflate',
                'Accept-Language':'zh-Hans-CN, zh-Hans; q=0.5',
                'Connection':'Keep-Alive',
-               'Host':'zhannei.baidu.com',
                'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '}
 
         self.server     = '|' #Server: nginx/1.8.0 #Apache Tomcat/7.0.59
@@ -42,12 +46,13 @@ class masterWeb(object):
                 pass
 
     def getpag404(self):
+        requests.packages.urllib3.disable_warnings()
         try:
             url = self.url + "/7xs12rna9sdj1nsdaux.%s"%self.host
             return requests.get(
                 url,
                 allow_redirects=True,
-                headers=self.headers,
+                #headers=self.headers,
                 proxies=self.proxy,
                 timeout=self.timeout,
                 verify=False)
@@ -55,13 +60,13 @@ class masterWeb(object):
             pass
 #load部分获取title xpower， cms 获取分两个部分 300 200 先不允许重定向（此处很细，值得学习）。
     def load(self):
+        requests.packages.urllib3.disable_warnings()
         res = requests.get(
                 self.url,
                 allow_redirects=False,
-                headers=self.headers,
+                #headers=self.headers,
                 #proxies=self.proxy,
-                timeout=self.timeout,
-                verify=False)
+                timeout=self.timeout)
         self.headers = res.headers
         self.server = res.headers.get('Server',self.server)
         xPowerBy1 = res.headers.get('X-Powered-By','')
@@ -86,9 +91,9 @@ class masterWeb(object):
             server = self.findJavaServer(self.scheme, self.netloc)
             self.server = server + '|' + self.server if server else res.headers.get('Server')
 
-        self.cms = '|'.join(cmsDiscover(self.url))
+        #self.cms = '|'.join(cmsDiscover(self.url))
 
-    def findXPowerBby(res):
+    def findXPowerBby(self,res):
         xPowerBy = ' '
         headers = str(res.headers)
         content = res.text
@@ -112,7 +117,7 @@ class masterWeb(object):
            xPowerBy += 'PHP'
         return xPowerBy
 
-    def gethostbyname(hostname):
+    def gethostbyname(self, hostname):
         try:
             return socket.gethostbyname(hostname)
         except socket.gaierror:

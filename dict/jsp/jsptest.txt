@@ -1,0 +1,11 @@
+/FCKeditor/editor/filemanager/browser/default/browser.html?Type=Image&Connector=connectors/jsp/connector.jsp
+/fccmsres/admin/default.jsp
+/login.jsp
+/luntanLogin.jsp
+/domain_manage.jsp
+/login/index.jsp
+/admin/index.jsp
+/message/admin_login.jsp
+/admin.jsp
+/cms/admin.jsp
+/admin/admin.jsp

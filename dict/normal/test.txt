@@ -1,0 +1,3 @@
+/robots.txt
+/log.txt
+/index.php
