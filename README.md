@@ -6,6 +6,7 @@
 
 运行环境Python3.6 特殊路径字典易扩展，无需配置。
 
+![README.md](https://github.com/OldChenTou/PxScan/blob/master/1588065783085.jpg " README.md")
 
 
 ## 用法Usage
