@@ -15,8 +15,8 @@
         -h, --help            show this help message and exit
         -u Url, --url Url
         -d Directory, --dict Directory
-	-t Timeout, --timeout Timeout
-	-v VERSION, --version VERSION
-	-tech Tech Engine
+        -t Timeout, --timeout Timeout
+        -v VERSION, --version VERSION
+        -tech Tech Engine
  				
 
